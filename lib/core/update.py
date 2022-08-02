@@ -18,8 +18,8 @@ class Update(object):
     def __init__(self):
         self.db = db
         # It is important to add ?dl=1 to dropbox link as described https://www.dropbox.com/en/help/201
-        self.db_status = dropbox_cksum + "?dl=1"
-        self.remote_db = dropbox_dl + "?dl=1"
+        self.db_status = f"{dropbox_cksum}?dl=1"
+        self.remote_db = f"{dropbox_dl}?dl=1"
         self.check_drobpox_lnk()
         self.db_compressed = dropbox_dl.split('/')[-1].split("?dl=1")[0]
         self.db_update = dropbox_cksum.split('/')[-1].split("?dl=1")[0]

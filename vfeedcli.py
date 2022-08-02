@@ -17,7 +17,7 @@ try:
     from config.constants import build, title
     from lib.common.utils import enum_classes, mongo_server
 except ImportError as e:
-    print("[!] Missing a dependency:", str(e))
+    print("[!] Missing a dependency:", e)
     sys.exit()
 
 if __name__ == "__main__":
@@ -47,7 +47,7 @@ if __name__ == "__main__":
             result = getattr(Search(cve_id), method)
             print(result())
         except Exception as e:
-            print("[!] Unknown built-in function:", str(e))
+            print("[!] Unknown built-in function:", e)
 
     if args.update:
         Update().update()
@@ -71,7 +71,7 @@ if __name__ == "__main__":
             result = getattr(Stats(), method_name)
             print(result())
         except Exception as e:
-            print("[!] Unknown built-in function:", str(e))
+            print("[!] Unknown built-in function:", e)
 
     if args.list:
         enum_classes("list", "")

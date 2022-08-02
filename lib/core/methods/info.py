@@ -47,7 +47,7 @@ class CveInfo(object):
                         "url": cwe_url + str(self.data2[0]).replace("CWE-", "") + ".html"}
                 self.cwe.append(item)
 
-        if len(self.cwe) != 0:
+        if self.cwe:
             return json.dumps(self.cwe, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -79,7 +79,7 @@ class CveInfo(object):
                         "url": capec_url + self.capec_id + ".html", "mitigations": self.capec_mitigation}
                 self.capec.append(item)
 
-        if len(self.capec) != 0:
+        if self.capec:
             return json.dumps(self.capec, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -105,7 +105,7 @@ class CveInfo(object):
                             "title": self.data2[1], "url": cwe_url + str(self.data2[0]).replace("CWE-", "") + ".html"}
                     self.category.append(item)
 
-        if len(self.category) != 0:
+        if self.category:
             return json.dumps(self.category, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -121,7 +121,7 @@ class CveInfo(object):
             item = {"id": self.data[0]}
             self.cpe.append(item)
 
-        if len(self.cpe) != 0:
+        if self.cpe:
             return json.dumps(self.cpe, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -150,7 +150,7 @@ class CveInfo(object):
                             "title": self.wasc_title, "url": wasc_url + self.wasc_title.replace(" ", "-")}
                     self.wasc.append(item)
 
-        if len(self.wasc) != 0:
+        if self.wasc:
             return json.dumps(self.wasc, indent=2, sort_keys=True)
         else:
             return json.dumps(None)

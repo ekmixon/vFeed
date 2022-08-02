@@ -121,7 +121,4 @@ class CveRisk(object):
                     item = {"id": item.get("id"), "title": item.get("title")}
                     top_alert.append(item)
 
-        if top_alert:
-            return top_alert
-        else:
-            return False
+        return top_alert or False

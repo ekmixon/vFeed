@@ -28,7 +28,7 @@ class CveScanners(object):
                     "family": str(self.data[3])}
             self.nessus.append(item)
 
-        if len(self.nessus) != 0:
+        if self.nessus:
             return json.dumps(self.nessus, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -46,7 +46,7 @@ class CveScanners(object):
                     "family": str(self.data[3])}
             self.openvas.append(item)
 
-        if len(self.openvas) != 0:
+        if self.openvas:
             return json.dumps(self.openvas, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -64,7 +64,7 @@ class CveScanners(object):
                     "url": nmap_url + str(self.data[0]).replace(".nse", ".html")}
             self.nmap.append(item)
 
-        if len(self.nmap) != 0:
+        if self.nmap:
             return json.dumps(self.nmap, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -84,7 +84,7 @@ class CveScanners(object):
             item = {"id": self.data[0], "class": self.data[1], "title": self.title, "url": oval_url + self.data[0]}
             self.oval.append(item)
 
-        if len(self.oval) != 0:
+        if self.oval:
             return json.dumps(self.oval, indent=2, sort_keys=True)
         else:
             return json.dumps(None)

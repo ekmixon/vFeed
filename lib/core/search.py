@@ -44,15 +44,22 @@ class Search(object):
         self.cpe = self.query.lower()
         (self.cur, self.query) = Database(self.cpe).db_init()
 
-        self.cur.execute("SELECT count(distinct cpeid) from cve_cpe where cpeid like ?", ('%' + self.cpe + '%',))
+        self.cur.execute(
+            "SELECT count(distinct cpeid) from cve_cpe where cpeid like ?",
+            (f'%{self.cpe}%',),
+        )
+
         self.count_cpe = self.cur.fetchone()
 
-        self.cur.execute("SELECT distinct cpeid from cve_cpe where cpeid like ? ORDER BY cpeid DESC",
-                         ('%' + self.cpe + '%',))
+        self.cur.execute(
+            "SELECT distinct cpeid from cve_cpe where cpeid like ? ORDER BY cpeid DESC",
+            (f'%{self.cpe}%',),
+        )
+
         self.cpe_data = self.cur.fetchall()
 
         if self.cpe_data:
-            for i in range(0, self.count_cpe[0]):
+            for i in range(self.count_cpe[0]):
                 self.cve_id = []
                 self.exploit_msf = []
                 self.cpe_id = self.cpe_data[i][0]
@@ -86,8 +93,7 @@ class Search(object):
         self.cve_datas = self.cur.fetchall()
 
         if self.cve_datas:
-            for self.cve_data in self.cve_datas:
-                self.cve_id.append(self.cve_data[0])
+            self.cve_id.extend(self.cve_data[0] for self.cve_data in self.cve_datas)
             item = {self.cwe: {"vulnerability": self.cve_id}}
             self.res.append(item)
         else:
@@ -112,9 +118,7 @@ class Search(object):
             self.cur.execute("SELECT cveid from map_cve_oval where ovalid=?", (self.oval_id,))
             self.cve_datas = self.cur.fetchall()
 
-            for self.cve_data in self.cve_datas:
-                self.cve_id.append(self.cve_data[0])
-
+            self.cve_id.extend(self.cve_data[0] for self.cve_data in self.cve_datas)
             item = {self.oval_id: {"vulnerability": self.cve_id}}
             self.res.append(item)
         else:
@@ -127,13 +131,17 @@ class Search(object):
         self.entry = self.query
         (self.cur, self.conn) = Database(None).db_init()
 
-        self.cur.execute("SELECT * from nvd_db where summary like ? ORDER BY cveid DESC",
-                         ('%' + self.entry + '%',))
+        self.cur.execute(
+            "SELECT * from nvd_db where summary like ? ORDER BY cveid DESC",
+            (f'%{self.entry}%',),
+        )
+
         self.entry_data = self.cur.fetchall()
 
         if self.entry_data:
-            for self.data in self.entry_data:
-                self.cve_id.append(self.data[0] + " : " + self.data[3])
+            self.cve_id.extend(
+                f"{self.data[0]} : {self.data[3]}" for self.data in self.entry_data
+            )
 
             item = {self.entry: {"vulnerability": self.cve_id}}
             self.res.append(item)
@@ -145,17 +153,15 @@ class Search(object):
     @staticmethod
     def check_msf(cve):
         msf = CveExploit(cve).get_msf()
-        if msf is not "null":
-            msf = json.loads(msf)
-            return msf
-        else:
+        if msf is "null":
             return None
+        msf = json.loads(msf)
+        return msf
 
     @staticmethod
     def check_edb(cve):
         edb = CveExploit(cve).get_edb()
-        if edb is not "null":
-            edb = json.loads(edb)
-            return edb
-        else:
+        if edb is "null":
             return None
+        edb = json.loads(edb)
+        return edb

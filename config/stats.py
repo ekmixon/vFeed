@@ -22,7 +22,7 @@ class Stats(object):
         print("vFeed DB Statistics")
         print("Distinct values of CVEs and associated third party references")
         for self.data in self.cur.fetchall():
-            print('Database build (latest update date):', str(self.data[0]))
+            print('Database build (latest update date):', self.data[0])
             print("---------------------------------------------------------------")
             print("[+] Vulnerability Information and References")
             print("\t[-] Common Vulnerability Enumeration (CVE):", self.data[1])
@@ -78,7 +78,7 @@ class Stats(object):
 
         print("---------------------------------------------------------------")
         print("vFeed DB Statistics : Latest added CVEs")
-        print("%s total added new CVEs" % self.latest_cve[0])
+        print(f"{self.latest_cve[0]} total added new CVEs")
         print("---------------------------------------------------------------")
 
         self.cur.execute("SELECT * FROM stat_new_cve; ")

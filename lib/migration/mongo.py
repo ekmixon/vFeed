@@ -43,7 +43,7 @@ class Migrate(object):
         :return: CSV files into csv_exports directory
         """
         print("[+] Starting Migration Process ....")
-        self.migration_read = '.read ' + self.migration_script
+        self.migration_read = f'.read {self.migration_script}'
 
         try:
             subprocess.check_call([
@@ -54,16 +54,14 @@ class Migrate(object):
         except OSError as e:
             if e.errno == os.errno.ENOENT:
                 print("[Error] SQlite binary not found: install SQLite", e)
-                raise
-            else:
-                raise
+            raise
 
     def do_csv_to_mongo(self, ):
         """ read the csv files and populate the vFeed MongoDB
         :return: CSV files into csv_exports directory
         """
         self.mongo_host = self.mongo_url
-        for csv_file in glob.glob(self.csv_dir + '*.csv'):
+        for csv_file in glob.glob(f'{self.csv_dir}*.csv'):
             self.table_name = csv_file.split('\\') if '\\' in csv_file else csv_file.split('/')
             self.table_name = self.table_name[len(self.table_name) - 1].replace('.csv', '')
             try:
@@ -84,4 +82,4 @@ class Migrate(object):
             except Exception as e:
                 print("[Warning] Caught an exception", e)
 
-            print (("[+] Imported collection: {} --> vFeed MongoDB".format(self.table_name)))
+            print(f"[+] Imported collection: {self.table_name} --> vFeed MongoDB")
