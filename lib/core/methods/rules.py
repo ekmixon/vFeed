@@ -25,7 +25,7 @@ class CveRules(object):
             item = {"id": str(self.data[0]), 'signature': str(self.data[1]), 'category': str(self.data[2])}
             self.snort.append(item)
 
-        if len(self.snort) != 0:
+        if self.snort:
             return json.dumps(self.snort, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -41,7 +41,7 @@ class CveRules(object):
             item = {"id": str(self.data[0]), 'signature': str(self.data[1]), 'classtype': str(self.data[2])}
             self.suricata.append(item)
 
-        if len(self.suricata) != 0:
+        if self.suricata:
             return json.dumps(self.suricata, indent=2, sort_keys=True)
         else:
             return json.dumps(None)

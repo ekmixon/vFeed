@@ -35,11 +35,12 @@ def enum_classes(method_name, cve_id):
     import lib.core.methods as functions
 
     method_found = False
-    classes = []
+    classes = [
+        obj
+        for name, obj in inspect.getmembers(functions, inspect.isclass)
+        if inspect.isclass(obj)
+    ]
 
-    for name, obj in inspect.getmembers(functions, inspect.isclass):
-        if inspect.isclass(obj):
-            classes.append(obj)
 
     for my_class in classes:
         if method_name == "list":
@@ -52,10 +53,9 @@ def enum_classes(method_name, cve_id):
             if method_name == "list":
                 if "__" not in function:
                     print("\t |---> ", function)
-            else:
-                if method_name == function:
-                    result = getattr(my_class(cve_id), method_name)
-                    return result()
+            elif method_name == function:
+                result = getattr(my_class(cve_id), method_name)
+                return result()
     if not method_found:
         return "Use option '--list' to enumerate the available methods."
 
@@ -66,8 +66,11 @@ def enum_functions(class_name):
     :param class_name
     :return: list of functions
     """
-    functions = [attr for attr in dir(class_name) if inspect.ismethod(getattr(class_name, attr))]
-    return functions
+    return [
+        attr
+        for attr in dir(class_name)
+        if inspect.ismethod(getattr(class_name, attr))
+    ]
 
 
 def move_export(json_export, json_file):
@@ -93,7 +96,7 @@ def mongo_server(process):
     """ check whether the Mongo process is up and running
     :return: True / False
     """
-    if platform == "linux" or platform == "linux2":
+    if platform in ["linux", "linux2"]:
         command = "pidof"
     elif platform == "darwin":
         command = "pgrep"

@@ -31,7 +31,7 @@ class CvePatches(object):
                     "url": str(self.data[3])}
             self.ms.append(item)
 
-        if len(self.ms) != 0:
+        if self.ms:
             return json.dumps(self.ms, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -49,7 +49,7 @@ class CvePatches(object):
             item = {"id": str(self.data[0]), "url": ibm_url + str(self.data[0])}
             self.aixapar.append(item)
 
-        if len(self.aixapar) != 0:
+        if self.aixapar:
             return json.dumps(self.aixapar, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -76,7 +76,7 @@ class CvePatches(object):
                                       "url": bugzilla_url + str(self.data2[1])}}
                 self.redhat.append(item2)
 
-        if len(self.redhat) != 0:
+        if self.redhat:
             return json.dumps(self.redhat, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -93,7 +93,7 @@ class CvePatches(object):
             item = {"id": self.data[0], "url": debian_url + str(self.data[0])}
             self.debian.append(item)
 
-        if len(self.debian) != 0:
+        if self.debian:
             return json.dumps(self.debian, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -111,7 +111,7 @@ class CvePatches(object):
 
             self.suse.append(item)
 
-        if len(self.suse) != 0:
+        if self.suse:
             return json.dumps(self.suse, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -128,7 +128,7 @@ class CvePatches(object):
             item = {"id": self.data[0], "url": ubuntu_url + str(self.data[0])}
             self.ubuntu.append(item)
 
-        if len(self.ubuntu) != 0:
+        if self.ubuntu:
             return json.dumps(self.ubuntu, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -145,7 +145,7 @@ class CvePatches(object):
             item = {"id": self.data[0], "url": gentoo_url + str.replace(str(self.data[0]), 'GLSA-', '')}
             self.gentoo.append(item)
 
-        if len(self.gentoo) != 0:
+        if self.gentoo:
             return json.dumps(self.gentoo, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -162,7 +162,7 @@ class CvePatches(object):
             item = {"id": str(self.data[0]), "url": fedora_url + str(self.data[0])}
             self.fedora.append(item)
 
-        if len(self.fedora) != 0:
+        if self.fedora:
             return json.dumps(self.fedora, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -179,7 +179,7 @@ class CvePatches(object):
             item = {"id": str(self.data[0]), "url": mandriva_url + str(self.data[0])}
             self.mandriva.append(item)
 
-        if len(self.mandriva) != 0:
+        if self.mandriva:
             return json.dumps(self.mandriva, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -196,7 +196,7 @@ class CvePatches(object):
             item = {"id": str(self.data[0]), "url": vmware_url + str(self.data[0]) + '.html'}
             self.vmware.append(item)
 
-        if len(self.vmware) != 0:
+        if self.vmware:
             return json.dumps(self.vmware, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -212,7 +212,7 @@ class CvePatches(object):
             item = {"id": str(self.data[0])}
             self.cisco.append(item)
 
-        if len(self.cisco) != 0:
+        if self.cisco:
             return json.dumps(self.cisco, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -229,7 +229,7 @@ class CvePatches(object):
             item = {"id": str(self.data[0]), "url": str(self.data[1])}
             self.hp.append(item)
 
-        if len(self.hp) != 0:
+        if self.hp:
             return json.dumps(self.hp, indent=2, sort_keys=True)
         else:
             return json.dumps(None)

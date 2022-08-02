@@ -29,7 +29,7 @@ class CveRef(object):
             item = {"vendor": self.data[0], "url": self.data[1]}
             self.references.append(item)
 
-        if len(self.references) != 0:
+        if self.references:
             return json.dumps(self.references, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -46,7 +46,7 @@ class CveRef(object):
             item = {"id": self.data[0], "url": self.data[1]}
             self.scip.append(item)
 
-        if len(self.scip) != 0:
+        if self.scip:
             return json.dumps(self.scip, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -63,7 +63,7 @@ class CveRef(object):
             item = {"id": self.data[0], "url": osvdb_url + str(self.data[0])}
             self.osvdb.append(item)
 
-        if len(self.osvdb) != 0:
+        if self.osvdb:
             return json.dumps(self.osvdb, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -80,7 +80,7 @@ class CveRef(object):
             item = {"id": self.data[0], "url": self.data[1]}
             self.certvn.append(item)
 
-        if len(self.certvn) != 0:
+        if self.certvn:
             return json.dumps(self.certvn, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -97,7 +97,7 @@ class CveRef(object):
             item = {"id": self.data[0], "key": self.data[1], "title": self.data[2]}
             self.iavm.append(item)
 
-        if len(self.iavm) != 0:
+        if self.iavm:
             return json.dumps(self.iavm, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
@@ -114,7 +114,7 @@ class CveRef(object):
             item = {"id": self.data[0], "url": bid_url + str(self.data[0])}
             self.bid.append(item)
 
-        if len(self.bid) != 0:
+        if self.bid:
             return json.dumps(self.bid, indent=2, sort_keys=True)
         else:
             return json.dumps(None)
